@@ -1,0 +1,42 @@
+<idea-plugin version="2">
+    <id>com.github.intelij.flowdock.plugin</id>
+    <name>Intelij flowdock plugin</name>
+    <version>1.0</version>
+    <vendor email="anand.shah110@gmail.com" url="https://anandshah123.github.com/intelij-flowdock-plugin">Intelij
+        flowdock plugin
+    </vendor>
+
+    <description><![CDATA[
+      Integrates Intelij with <a href="http://flowdock.com">Flowdock</a>
+    ]]></description>
+
+    <change-notes><![CDATA[
+
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="141.0"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <toolWindow id="Flowdock" icon="/icons/flowdock_icon.png" anchor="right" factoryClass="com.github.intelij.flowdock.plugin.tool.FlowdockTool" />
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+
+        <group id="FlowdockPlugin.MainMenu" text="Flow_dock" description="Flow menu" >
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="FlowdockPlugin.Login" class="com.github.intelij.flowdock.plugin.actions.FlowdockLoginAction" text="Login"
+                    description="A test menu item"/>
+        </group>
+
+    </actions>
+
+</idea-plugin>
