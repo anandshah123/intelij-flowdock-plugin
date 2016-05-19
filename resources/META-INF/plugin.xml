@@ -31,12 +31,6 @@
     <actions>
         <!-- Add your actions here -->
 
-        <group id="FlowdockPlugin.MainMenu" text="Flow_dock" description="Flow menu" >
-            <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="FlowdockPlugin.Login" class="com.github.intelij.flowdock.plugin.actions.FlowdockLoginAction" text="Login"
-                    description="A test menu item"/>
-        </group>
-
     </actions>
 
 </idea-plugin>

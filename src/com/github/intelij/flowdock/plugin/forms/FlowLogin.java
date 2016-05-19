@@ -1,7 +1,12 @@
 package com.github.intelij.flowdock.plugin.forms;
 
+import com.github.intelij.flowdock.plugin.api.FlowdockAPI;
+import com.github.intelij.flowdock.plugin.util.ApplicationConstants;
+import com.intellij.ide.util.PropertiesComponent;
+
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class FlowLogin extends JDialog {
     private JPanel contentPane;
@@ -10,9 +15,7 @@ public class FlowLogin extends JDialog {
     private JLabel lbluser;
     private JTextField usernameField;
     private JPasswordField passwordField;
-
-    private static String flowdockUser;
-    private static String flowdockPass;
+    private JLabel msgLabel;
 
     public FlowLogin() {
         setContentPane(contentPane);
@@ -49,22 +52,29 @@ public class FlowLogin extends JDialog {
 
     private void onOK() {
 // add your code here
-        flowdockUser = usernameField.getText();
-        flowdockPass = String.valueOf(passwordField.getPassword());
-        dispose();
+        buttonOK.setVisible(false);
+        msgLabel.setVisible(false);
+        PropertiesComponent.getInstance().setValue(ApplicationConstants.FLOWDOCK_API_USERNAME, usernameField.getText());
+        PropertiesComponent.getInstance().setValue(ApplicationConstants.FLOWDOCK_API_PASSWORD, String.valueOf(passwordField.getPassword()));
+        boolean credentialsOK = false;
+        try {
+            credentialsOK = FlowdockAPI.checkCredentials();
+        } catch (IOException e) {
+            msgLabel.setText("Network Error");
+            msgLabel.setVisible(true);
+        }
+        if (!credentialsOK) {
+            msgLabel.setText("Invalid credentials");
+            msgLabel.setVisible(true);
+        }
+        if (credentialsOK)
+            dispose();
+        buttonOK.setVisible(true);
     }
 
     private void onCancel() {
 // add your code here if necessary
         dispose();
-    }
-
-    public static String getFlowdockUser() {
-        return flowdockUser;
-    }
-
-    public static String getFlowdockPass() {
-        return flowdockPass;
     }
 
     public static void main(String[] args) {
