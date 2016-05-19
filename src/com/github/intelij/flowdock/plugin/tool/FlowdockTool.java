@@ -7,13 +7,22 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
+import com.intellij.ui.content.Content;
+import com.intellij.ui.content.ContentFactory;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class FlowdockTool implements ToolWindowFactory {
 
+
+    private JLabel lblSearch;
+    private JComboBox comboSearch;
+    private JPanel formPanel;
+    private JTextArea textArea1;
+    private JButton sendButton;
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
@@ -28,6 +37,9 @@ public class FlowdockTool implements ToolWindowFactory {
             dialog.setVisible(true);
         }
 
+        ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        Content content = contentFactory.createContent(formPanel, "", false);
+        toolWindow.getContentManager().addContent(content);
     }
 
     private boolean isCredentialsOK() {
